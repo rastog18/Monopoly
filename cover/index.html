@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en" class="h-100" data-bs-theme="auto">
+
+<head>
+  
+  <script src="../assets/js/color-modes.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.122.0">
+  <title>Cover Template · Bootstrap v5.3</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Ultra&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magicui/dist/magicui.min.css">
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      /* Sets the height to cover the full viewport */
+      width: 100%;
+      /* Sets the width to cover the full viewport */
+      margin: 0;
+      /* Removes default margin */
+      padding: 0;
+      perspective: 1000px;
+      /* Adds perspective to the 3D space */
+      overflow: hidden;
+    }
+
+    #monopoly_board {
+      background-color: #0A0A0A;
+      width: 50%;
+      margin-top: 0px;
+      margin: auto;
+      aspect-ratio: 1/1;
+      border: 0px;
+      transform: rotateX(45deg) rotateZ(45deg) translateZ(100px);
+      transition: transform 0.5s ease-in-out;
+      display: flex;
+      /* Set the display to flex to use flexbox properties */
+      justify-content: center;
+      /* Center horizontally inside the flex container */
+      align-items: center;
+      /* Center vertically inside the flex container */
+      position: relative;
+      overflow: hidden;
+    }
+
+    #board_center {
+      background-color: #F8F8F8;
+      width: 60%;
+      margin-top: 0px;
+      aspect-ratio: 1/1;
+      border: 0px;
+    }
+
+    .card_top {
+      border-style: solid;
+      border-width: 1px;
+      border-color: #CD7F32;
+      background-color: #0A0A0A;
+      width: 100%;
+      height: 20%;
+      position: absolute;
+      top: 0px;
+    }
+
+    .card_bottom {
+      border-style: solid;
+      border-width: 1px;
+      border-color: #CD7F32;
+      background-color: #0A0A0A;
+      width: 100%;
+      height: 20%;
+      position: absolute;
+      bottom: 0px;
+    }
+
+    .card_left {
+      border-style: solid;
+      border-width: 1px;
+      border-color: #CD7F32;
+      background-color: #0A0A0A;
+      border-top: 0px;
+      border-bottom: 0px;
+      width: 20%;
+      height: 60%;
+      position: absolute;
+      left: 0px;
+    }
+
+    .card_right {
+      border-style: solid;
+      border-width: 1px;
+      border-color: #CD7F32;
+      background-color: #0A0A0A;
+      border-top: 0px;
+      border-bottom: 0px;
+      width: 20.25%;
+      height: 60%;
+      position: absolute;
+      right: 0px;
+    }
+
+    .card {
+      border-color: #CD7F32;
+      background-color: #0A0A0A;
+      border-radius: 0%;
+      border-top: 0px;
+      border-bottom: 0px;
+      border-left: 0px;
+      /* padding: 6.12%; */
+    }
+
+    .card_col {
+      background-color: #0A0A0A;
+      border-radius: 0%;
+      border-bottom: 0px;
+      border-top: 1px solid #CD7F32;
+      /* padding: 6.12%; */
+    }
+
+    .hotel_area {
+      width: 100%;
+      height: 20%;
+    }
+
+    .hotel_wid {
+      width: 20%;
+      height: 100%;
+    }
+
+    .blue {
+      background-color: #5DA9E9;
+    }
+
+    .purple {
+      background-color: #AA4B8F;
+    }
+
+    .red {
+      background-color: #DB324D;
+    }
+
+    .yellow {
+      background-color: #F0C256;
+    }
+    #jail:hover #gtjImg,
+    #goToJail:hover,
+    #parking:hover,
+    .card:hover .hotel,
+    .card_col:hover .hotel {
+    transform: scale(1.05);
+    transition: 0.35s;
+    box-shadow: 0 0 15px black;
+  }
+  #start:hover #goText{
+    transform: scale(1.05);
+    transition: 0.35s;
+  }
+  @keyframes rotateBorder {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.monopoly_board_border::before {
+  content: "";
+  position: absolute;
+  top: -10px; left: -10px; right: -10px; bottom: -10px;
+  background: linear-gradient(90deg, hsla(197, 100%, 64%, 1) 0%, hsla(339, 100%, 55%, 1) 100%);
+  border-radius: 8px;
+  z-index: -1;
+  animation: rotateBorder 8s linear infinite;
+}
+  </style>
+
+
+  <!-- Custom styles for this template -->
+  <link href="cover.css" rel="stylesheet">
+</head>
+
+<body class="text-center text-bg-dark">
+  <div class="card" id="ntf-details" style="background-color: #0A0A0A; width:25%; height:30%; position: absolute; z-index: 100; top: 65%; left:2.5%; display: none; border-width: 0;"></div>
+  <!-- <BorderBeam size={250} duration={12} delay={9} /> -->
+  <div id="monopoly_board">
+    <div id="board_center"> </div>
+    <!-- TOP div -->
+    <div class="card_top d-flex flex-row">
+      <div id="parking"class="card" style="width: 20%; height: 100%; position: relative;">
+        <img src="images/parking.png" alt="Parking" style="color: #E5F4E3; position: absolute; bottom: 0; right: 0; width: 95%; height: 90%; transform: rotateZ(45deg);">
+    </div>    
+      <div class="card col-sm d-flex flex-column justify-content-end" onclick="displayDetails(this)">
+        <img src="images/nftTest.png" style="width: 100%; height: 80%; transform: rotateZ(180deg);">
+        <div class="hotel hotel_area yellow"></div>    
+      </div>
+      <div class="card col-sm d-flex flex-column justify-content-end" onclick="displayDetails(this)">
+        <div class="hotel hotel_area yellow"></div>
+      </div>
+      <div class="card col-sm d-flex flex-column justify-content-end" onclick="displayDetails(this)">
+        <div class="hotel hotel_area red"></div>
+      </div>
+      <div class="card col-sm d-flex flex-column justify-content-end" onclick="displayDetails(this)">
+        <div class="hotel hotel_area red"></div>
+      </div>
+      <div id="goToJail"class="card" style="width: 20%;">
+        <img src="images/gotojail.png" alt="Go To Jail" style="color: #E5F4E3; position: relative; overflow: hidden; width: 90%; height: 90%; transform: rotateZ(45deg);">
+      </div>
+    </div>
+    <!-- Bottom Div -->
+    <div class="card_bottom d-flex flex-row">
+      <div id="jail"class="card" style="width: 20%; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-end;">
+          <img id="gtjImg" src="images/jail.png" alt="Jail" style="color: #E5F4E3; width: 80%; height: 80%; ;position: relative; overflow: hidden;">
+      </div>
+      <div class="card col-sm" onclick="displayDetails(this)">
+        <div class="hotel hotel_area blue"></div>
+      </div>
+      <div class="card col-sm" onclick="displayDetails(this)">
+        <div class="hotel hotel_area blue"></div>
+      </div>
+      <div class="card col-sm" onclick="displayDetails(this)">
+        <div class="hotel hotel_area purple"></div>
+      </div>
+      <div class="card col-sm" onclick="displayDetails(this)">
+        <div class="hotel hotel_area purple"></div>
+      </div>
+      <div id="start" class="card" style="width: 20%; height: 100%; justify-content: center;">
+        <div style="text-align: center; transform: rotateZ(-45deg);">
+          <p id="goText"style="font-size: 70px; font-family: 'Ultra', sans-serif;color: #E5F4E3;">GO</p>
+        </div>
+      </div>
+    </div>
+    <!-- Left Div -->
+    <div class="card_left d-flex flex-column">
+      <div class="card_col d-flex justify-content-end" style="flex: 1; border-top: 0px;" onclick="displayDetails(this)">
+        <div class="hotel hotel_wid yellow"></div>
+      </div>
+      <div class="card_col d-flex justify-content-end" style="flex: 1;" onclick="displayDetails(this)">
+        <div class="hotel hotel_wid yellow"></div>
+      </div>
+      <div class="card_col d-flex justify-content-end" style="flex: 1;" onclick="displayDetails(this)">
+        <div class="hotel hotel_wid blue"></div>
+      </div>
+      <div class="card_col d-flex justify-content-end" style="flex: 1;" onclick="displayDetails(this)">
+        <div class="hotel hotel_wid blue"></div>
+      </div>
+    </div>
+    <!-- Right Div -->
+    <div class="card_right d-flex flex-column">
+      <div class="card_col" style="flex: 1; border-top: 0px;" onclick="displayDetails(this)">
+        <div class="hotel hotel_wid red"></div>
+      </div>
+      <div class="card_col" style="flex: 1;" onclick="displayDetails(this)">
+        <div class="hotel hotel_wid red"></div>
+      </div>
+      <div class="card_col" style="flex: 1;" onclick="displayDetails(this)">
+        <div class="hotel hotel_wid purple"></div>
+      </div>
+      <div class="card_col" style="flex: 1;" onclick="displayDetails(this)">
+        <div class="hotel hotel_wid purple"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.12.9/babel.min.js"></script>
+
+<script>
+  function displayDetails(element){
+    var hotelElement = element.querySelector('.hotel');
+    var backgroundColor = window.getComputedStyle(hotelElement).backgroundColor;
+    var cardDetail = document.getElementById('ntf-details');
+    cardDetail.style.display = "block";
+    cardDetail.style.boxShadow = "0 0 15px " + backgroundColor;
+  }
+</script>
+
+</body>
+
+</html>

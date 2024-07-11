@@ -1,0 +1,1450 @@
+<html>
+    <head>
+        <script src="../assets/js/color-modes.js"></script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.122.0">
+        <title>Monopoly</title>
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Ultra&display=swap" rel="stylesheet">
+        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/501e6f40c4.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <style>
+            html,
+            body {
+              position: relative;
+              height: 100%;
+              /* Sets the height to cover the full viewport */
+              width: 100%;
+              /* Sets the width to cover the full viewport */
+              margin: 0;
+              /* Removes default margin */
+              padding: 0;
+              perspective: 1000px;
+              /* Adds perspective to the 3D space */
+              overflow: hidden;
+              color:moccasin;
+              background-image: url(../assets/images/bodyBg.png);
+              background-size: cover;
+              background-opacity: 0.5;
+              background-repeat: no-repeat;
+              background-position: center center;
+              background-attachment: fixed; 
+            }
+        
+            #monopoly_board {
+              position: relative;
+              overflow: visible;
+              width: 50%;
+              margin: auto;
+              aspect-ratio: 1/1;
+              transform: rotateX(45deg) rotateZ(0deg) translateZ(150px);
+              transition: transform 0.5s ease-in-out;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: #212529;
+            }
+            .initial-rotation {
+              animation: rotateY 8s forwards;
+            }
+
+            @keyframes rotateY {
+              from {
+                transform: rotateX(45deg) rotateZ(45deg) translateZ(150px);
+              }
+              to {
+                transform: rotateX(45deg) rotateZ(360deg) translateZ(150px);
+              }
+            }
+        
+            #board_center {
+              background-color: #212529;
+              width: 60%;
+              margin-top: 0px;
+              aspect-ratio: 1/1;
+              border: 0px;
+            }
+        
+            .card_top {
+              border-style: solid;
+              border-width: 0px;
+              /* border-color: gold; */
+              /* background-color: floralwhite; */
+              width: 100%;
+              height: 20%;
+              position: absolute;
+              top: 0px;
+            }
+        
+            .card_bottom {
+              border-style: solid;
+              border-width: 0px;
+              /* border-color: gold; */
+              /* background-color: floralwhite; */
+              width: 100%;
+              height: 20%;
+              position: absolute;
+              bottom: 0px;
+            }
+        
+            .card_left {
+              border-style: solid;
+              border-width: 0px;
+              /* border-color: gold; */
+              /* background-color: floralwhite; */
+              border-top: 0px;
+              border-bottom: 0px;
+              width: 20%;
+              height: 60%;
+              position: absolute;
+              left: 0px;
+            }
+        
+            .card_right {
+              border-width: 0px;
+              /* border-color: gold; */
+              /* background-color: floralwhite; */
+              width: 20.25%;
+              height: 60%;
+              position: absolute;
+              right: 0px;
+            }
+        
+            .card {
+              /* border-color: gold; */
+              background-color: floralwhite;
+              border-radius: 0%;
+              border-top: 0px;
+              border-bottom: 0px;
+              border-left: 0px;
+              transition: all 0.5 ease;
+              /* padding: 6.12%; */
+            }
+        
+            .card_col {
+              background-color: floralwhite;
+              border-radius: 0%;
+              border-bottom: 0px;
+              transition: all 0.5 ease;
+              /* border-top: 1px solid gold; */
+              /* padding: 6.12%; */
+            }
+        
+            .hotel_area {
+              width: 80%;
+              height: 30%;
+            }
+        
+            .hotel_wid {
+              width: 20%;
+              height: 80%;
+            }
+        
+            .blue {
+              background-color: #018FB1;
+            }
+        
+            .purple {
+              background-color: #AA38D2;
+            }
+        
+            .red {
+              background-color: #FF5731;
+            }
+        
+            .yellow {
+              background-color: #F9AD0B;
+            }
+            #jail:hover #gtjImg,
+            #goToJail:hover #gotoJailImg,
+            #parking:hover #parkImg,
+            .card:hover .hotel,
+            .card_col:hover .hotel {
+            transform: scale(1.05);
+            transition: 0.35s;
+            box-shadow: 0 0 15px black;
+          }
+          #start:hover #goText{
+            transform: scale(1.05);
+            transition: 0.35s;
+          }
+          .full-icon2{
+            background-color:#0A0A0A;
+            border-color:white !important;
+            border-width: 1px !important;
+            border-style: solid !important;
+          }
+          .full-icon{
+            background-color:#0A0A0A;
+            border-color:white !important;
+            border-width: 1px !important;
+            border-style: solid !important;
+          }
+          .full-icon2,
+          .full-icon{
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            border-radius: 5px;
+          }
+          .hotel_wid,
+          .hotel_area{
+            margin: 2px;  
+            border-radius: 2px;  
+          }
+          #aPlayer,
+          #bPlayer, 
+          #cPlayer{
+            position: absolute;
+            z-index: 101;
+            transform: rotateY(180deg) rotateX(30deg);
+            right: 10%;
+            transition: right 0.5s ease-in-out, bottom 0.5s ease-in-out, tranform 0.5s ease-in-out, scale 1s ease-in-out/* Smooth transition */
+          }
+          #cPlayer{
+            bottom: 12%;
+          }
+          #aPlayer{
+            bottom: 2%; 
+          }
+          #bPlayer{
+            bottom: 6%;
+          }
+          @keyframes pulse {
+          0% {
+            background-color: rgba(0, 0, 0, 0.7);
+            opacity: 1;
+          }
+          50% {
+            background-color:#FF5731;
+            opacity: 0.7;
+          }
+          100% {
+            background-color: rgba(0, 0, 0, 0);
+            opacity: 1;
+          }
+        }
+          .highlight {
+            animation: pulse 1.5s infinite;
+          }
+          .diceDiv {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 40%;
+          width: 25%;
+          position: absolute;
+          left: 0px;
+          top: -80px;
+          transform: scale(0.75);
+        }
+        
+        #diceRoll {
+          position: relative;
+          top:80px;
+          left:10px;
+          padding: 15px 50px;
+          color: #fff;
+          background-color: #f4d35e;
+          border: none;
+          font-size: 20px;
+          border-radius: 20px; 
+          box-shadow: 1px 3px #50514F;
+          outline: none;
+          transition: .3s; 
+        }
+        
+        #diceRoll:hover, #diceRoll:active {
+          outline: none;
+          background: #50514F;
+          cursor: pointer;
+          transform: translateY(15px); 
+        }
+        
+        .game {
+          position: relative;
+          width: auto;
+          height: 100%; 
+        }
+        
+        .container {
+          position: relative;
+          display: inline-block;
+          top: 200px;
+        }
+        
+        .dice {
+          position: relative;
+          width: 100px;
+          height: 100px;
+          transform-style: preserve-3d;
+          transition: transform 1s; 
+        }
+        
+        .dot {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          margin: -10px 5px 5px -10px;
+          border-radius: 20px;
+          background-color: #f25f5c;
+          box-shadow: inset 2px 2px #d90429;
+        }
+        
+        .dice-one {
+          position: absolute;
+          left: 150px; 
+        }
+        
+        .dice-two {
+          position: absolute;
+          left: -50px;
+          
+        }
+        
+        .side {
+          position: absolute;
+          background-color: #ffF;
+          border-radius:5px;
+          width: 100px;
+          height: 100px;
+          border: 1px solid #e5e5e5;
+          text-align: center;
+          line-height: 2em;
+        }
+        
+        .side:nth-child(1) {
+          transform: translateZ(3.1em); }
+        
+        .side:nth-child(6) {
+          transform: rotateY(90deg) translateZ(3.1em); }
+        
+        .side:nth-child(3) {
+          transform: rotateY(-90deg) translateZ(3.1em); }
+        
+        .side:nth-child(4) {
+          transform: rotateX(90deg) translateZ(3.1em); }
+        
+        .side:nth-child(5) {
+          transform: rotateX(-90deg) translateZ(3.1em); }
+        
+        .side:nth-child(2) {
+          transform: rotateY(-180deg) translateZ(3.1em); }
+        
+        .show-1 {
+          transform: rotateX(720deg) rotateZ(-720deg); }
+        
+        .show-2 {
+          transform: rotateX(-900deg) rotateZ(1080deg); }
+        
+        .show-6 {
+          transform: rotateY(-450deg) rotateZ(-1440deg); }
+        
+        .show-3 {
+          transform: rotateY(810deg) rotateZ(720deg); }
+        
+        .show-4 {
+          transform: rotateX(-810deg) rotateZ(-1080deg); }
+        
+        .show-5 {
+          transform: rotateX(450deg) rotateZ(-720deg); }
+        
+        .two-1, .three-1, .four-1, .five-1, .six-1 {
+          top: 20%;
+          left: 20%; 
+        }
+        
+        .four-3, .five-3, .six-4 {
+          top: 20%;
+          left: 80%; }
+        
+        .one-1, .three-2, .five-5 {
+          top: 50%;
+          left: 50%; }
+        
+        .four-2, .five-2, .six-3 {
+          top: 80%;
+          left: 20%; }
+        
+        .two-2, .three-3, .four-4, .five-4, .six-6 {
+          top: 80%;
+          left: 80%; }
+        
+        .six-2 {
+          top: 50%;
+          left: 20%; }
+        
+        .six-5 {
+          top: 50%;
+          left: 80%; 
+        }
+        .hoverOnTurn {
+          transform: scale(1.05) translateZ(1px);
+          transition: transform 0.3s ease; /* Smooth transition for the effect */
+        }
+
+          .wallet {
+            width: 64px;
+            height: 64px;
+            position: relative;
+          }
+
+          .icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #0066ff;
+            color: #fff;
+            position: relative;
+            z-index: 101;
+          }
+
+          .coin {
+            position: absolute;
+            top: var(--coin-from-x, 24px);
+            left: var(--coin-from-y, 24px);
+            z-index: 100;
+            opacity: 0;
+          }
+
+          .coin::after {
+            content: "$";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 12px;
+            height: 12px;
+            font-size: 10px;
+            color: rgb(237, 196, 107);
+            background: rgb(227, 162, 23);
+            border: 2px solid rgb(237, 196, 107);
+            border-radius: 50%;
+            opacity: 0;
+          }
+
+          .coin--animated,
+          .coin--animated::after {
+            animation-delay: var(--coin-delay, 0s);
+            animation-duration: var(--coin-duration, 1.5s);
+            animation-direction: normal;
+            animation-fill-mode: both;
+            animation-play-state: running;
+            animation-iteration-count: infinite;
+          }
+
+          .coin--animated {
+            animation-name: coin-x-axis;
+            animation-timing-function: ease-in;
+          }
+
+          .coin--animated::after {
+            animation-name: coin-y-axis-and-flip;
+            animation-timing-function: ease-out;
+          }
+
+          @keyframes coin-x-axis {
+            30% {
+              opacity: 1;
+            }
+            70% {
+              opacity: 1;
+            }
+            to {
+              left: calc(var(--coin-to-x) * 1.5);
+            }
+          }
+
+          @keyframes coin-y-axis-and-flip {
+            30% {
+              opacity: 1;
+            }
+            70% {
+              opacity: 1;
+            }
+            to {
+              transform: translateY(calc(var(--coin-to-y) * 1.5)) rotate3d(1, 1, 1, 1080deg);
+            }
+          }
+          .dropdown-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        /* Show state */
+        .dropdown-content.show {
+            display: block; /* Ensure it is visible */
+            opacity: 1;
+            transform: translateY(0);
+        }
+          .property{
+            width: 100%;
+            height: 5%;
+          }
+          @font-face {
+            font-family: "myfont";
+            src: url("../assets/fonts/post-no-bills/postnobillscolombo-extrabold.ttf") format('woff');
+            font-weight: bold;
+          }
+
+          </style>
+    </head>
+    <body class="text-center" style="background-color:#0A0A0A">
+      <!-- Rotate Board -->
+      <button type="button" class="btn btn-secondary" style="position: absolute; right: 4.5%; bottom: 20%;" onclick="turn(1)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+         <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5"></path>
+        </svg>
+      </button>
+      <button type="button" class="btn btn-secondary" style="position: absolute; right: 1.5%; bottom: 20%;" onclick="turn(0)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
+        </svg>
+      </button>
+      <!-- TOAST SECTION -->
+      <button type="button" class="btn btn-primary" id="liveToastBtn" style="display: none;">Show live toast</button>
+
+      <div class="toast-container position-fixed bottom-0 end-0 p-3" style="position: absolute !important; bottom: 2% !important; right: 8% !important;">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <img src="../assets/images/monopolhy.png" class="rounded me-2" alt="..." width="20px">
+            <strong class="me-auto">Monopoly</strong>
+            <small>5s ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            Welcome to Monopoly!
+          </div>
+        </div>
+      </div>
+
+        <div id="bankContent" class="rounded-4 dropdown-content" style="width: 10%; height: 25%; position: absolute; top: 0%; right: 4%; background-color:#0A0A0A; display: none; opacity: 0.7;">
+          <p></p>
+          <p id="myProperty" style="font-size: xx-small; color: #E5F4E3; margin: 0px; text-align: left; margin-left: 5%;" ></p>
+          <p id="myBalance" style="margin: 0px;"></p>
+          <canvas id="myPieChart"> </canvas>
+        </div>
+        <div class="wrap" style="position: absolute; right: 2%; bottom: 10%;">
+          <div class="wallet" id="wallet">
+            <div class="icon">
+              <button class="btn" type="button" onclick="showBank()">
+                <i class="fa-brands fa-ethereum" style="scale: 2; color: currentColor;"></i>
+              </button>
+            </div>
+            <div
+              class="coin coin--animated"
+              style="--coin-to-x: calc(-100px + 24px); --coin-to-y: calc(-105px + 24px); --coin-delay: 0.3s;"
+            ></div>
+            <div
+              class="coin coin--animated"
+              style="--coin-to-x: calc(-70px + 24px); --coin-to-y: -90px; --coin-delay: 0.1s;"
+            ></div>
+            <div
+              class="coin coin--animated"
+              style="--coin-to-x: calc(-30px + 24px); --coin-to-y: -125px; --coin-delay: 0s;"
+            ></div>
+            <div
+              class="coin coin--animated"
+              style="--coin-to-x: calc(10px + 24px); --coin-to-y: -130px; --coin-delay: 0.2s;"
+            ></div>
+            <div
+              class="coin coin--animated"
+              style="--coin-to-x: calc(30px + 24px); --coin-to-y: -100px; --coin-delay: 0.1s;"
+            ></div>
+            <div
+              class="coin coin--animated"
+              style="--coin-to-x: calc(70px + 24px); --coin-to-y: -95px; --coin-delay: 0.4s;"
+            ></div>
+            <div
+              class="coin coin--animated"
+              style="--coin-to-x: calc(100px + 24px); --coin-to-y: -100px; --coin-delay: 0.2s;"
+            ></div>
+          </div>
+        </div>
+        <div class="d-flex flex-column playerProperty rounded-4 dropdown-content" style="width: 10%; height: 25%; position: absolute; top: 0%; right: 4%; background-color:#0A0A0A; display: none; opacity: 0.7;" id="0P" ></div>
+        <div class="d-flex flex-column playerProperty rounded-4 dropdown-content" style="width: 10%; height: 25%; position: absolute; top: 0%; right: 4%; background-color:#0A0A0A; display: none; opacity: 0.7;" id="1P"></div>
+        <div class="d-flex flex-column playerProperty rounded-4 dropdown-content" style="width: 10%; height: 25%; position: absolute; top: 0%; right: 4%; background-color:#0A0A0A; display: none; opacity: 0.7;" id="2P"></div>
+
+        <!-- <div id="PropertyContent" class="rounded-4 dropdown-content" style="width: 10%; height: 25%; position: absolute; top: 0%; right: 4%; background-color:#0A0A0A; display: none; opacity: 0.7;">
+          <div class="d-flex flex-column playerProperty" style="width: 100%; height: 100%; display: none;" id="0P" ></div>
+          <div class="d-flex flex-column playerProperty" style="width: 100%; height: 100%; display: none;" id="1P"></div>
+          <div class="d-flex flex-column playerProperty" style="width: 100%; height: 100%; display: none;" id="2P"></div>
+        </div> -->
+        <div class="wrap" style="position: absolute; right: 2%; bottom: 1%; color:#018FB1;">
+          <div class="wallet" id="wallet">
+            <div class="icon">
+              <button class="btn" type="button" onclick="showProperties()">
+                <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="24" height="24" viewBox="0 0 458.5 458.5" fill="currentColor"><path d="M336.7 344c-22 0-39.9-18-39.9-39.9V238c0-22 18-39.8 39.9-39.8h105.7v-65.9c0-17-13.8-30.7-30.7-30.7h-381c-17 0-30.7 13.7-30.7 30.7v277.6c0 17 13.8 30.8 30.7 30.8h381c17 0 30.7-13.8 30.7-30.8V344H336.7z"/><path d="M440.5 220H336.7c-10 0-18 8-18 18V304c0 10 8 18 18 18h103.8c10 0 18-8 18-18V238c0-10-8-18-18-18zm-68 77a26 26 0 1 1 0-52 26 26 0 0 1 0 52zM358.2 45.2A39.7 39.7 0 0 0 308 20L152 71.6h214.9l-8.7-26.4z"/></svg>
+              </button>
+            </div>
+          </div>
+          </div>
+      
+      <div id="flash" style="width: 100%; height: 100%; display: none;"></div>
+      <div class="flex-row card rounded-4" id="nft-details" style="width:25%; height:30%; position: absolute; z-index: 100; top: 65%; left:2.5%; display: none; border-width: 0; transition: background-color 0.5s ease; opacity: 0.5s ease; background-color: #0A0A0A; opacity: 0.9;">
+        <div class="imageHolder" style=" width: 50%; display: flex; justify-content: center; align-items: center;">
+        </div>
+        <div class="d-flex flex-column" style=" width: 50%;">
+          <div class="nft-text rounded" style=" height: 70%; margin-top: 10%; margin-right: 5%; margin-left: 5%;">
+            <p class="desc" ownner= "-1" data-value="-1" style="font-family: myfont; color:#e5e5e5 ;"></p>
+            <p class="desc" style="font-family: cursive; color:#e5e5e5; font-size: x-small;">Our diverse community encompasses a range of residences and unique spaces, each offering distinct living experiences and vibrant communities.</p>
+          </div>
+          <div class="actionButtons d-flex flex-row" style=" display: flex; justify-content: center; align-items: center;">
+            <button type="button" class="btn btn-outline-info dis0 col" style="display: none; margin: 5%;" id="buyButton" onmouseover="decorBut(this)" onmouseout="undoDeocr()" onclick="Buy()">Buy</button>
+            <button type="button" class="btn btn-outline-danger dis0 col " id="passButton" style="display: none; margin: 5%;" onmouseover="decorBut(this)" onmouseout="undoDeocr()"  onclick="Pass()">Pass</button>
+            <button type="button" class="btn btn-outline-danger dis1" id="rentButton" style="display: none;" onclick="Rent()">Pay Rent</button>
+            <div class="list-group" id="sellProperties" style="display: none; max-height: 120px; overflow-y: auto; width: 150px;"></div>
+          </div>
+        </div>
+      </div>
+        <div class="diceDiv ">
+          <div class="game">
+              <div class="container">
+                <div id='dice1' class="dice dice-one">
+                  <div id="dice-one-side-one" class='side one'>
+                    <div class="dot one-1"></div>
+                  </div>
+                  <div id="dice-one-side-two" class='side two'>
+                    <div class="dot two-1"></div>
+                    <div class="dot two-2"></div>
+                  </div>
+                  <div id="dice-one-side-three" class='side three'>
+                    <div class="dot three-1"></div>
+                    <div class="dot three-2"></div>
+                    <div class="dot three-3"></div>
+                  </div>
+                  <div id="dice-one-side-four" class='side four'>
+                    <div class="dot four-1"></div>
+                    <div class="dot four-2"></div>
+                    <div class="dot four-3"></div>
+                    <div class="dot four-4"></div>
+                  </div>
+                  <div id="dice-one-side-five" class='side five'>
+                    <div class="dot five-1"></div>
+                    <div class="dot five-2"></div>
+                    <div class="dot five-3"></div>
+                    <div class="dot five-4"></div>
+                    <div class="dot five-5"></div>
+                  </div>
+                  <div id="dice-one-side-six" class='side six'>
+                    <div class="dot six-1"></div>
+                    <div class="dot six-2"></div>
+                    <div class="dot six-3"></div>
+                    <div class="dot six-4"></div>
+                    <div class="dot six-5"></div>
+                    <div class="dot six-6"></div>
+                  </div>
+                </div>
+             </div>
+              <div class="container">
+                <div id='dice2' class="dice dice-two">
+                  <div id="dice-two-side-one" class='side one'>
+                    <div class="dot one-1"></div>
+                  </div>
+                  <div id="dice-two-side-two" class='side two'>
+                    <div class="dot two-1"></div>
+                    <div class="dot two-2"></div>
+                  </div>
+                  <div id="dice-two-side-three" class='side three'>
+                    <div class="dot three-1"></div>
+                    <div class="dot three-2"></div>
+                    <div class="dot three-3"></div>
+                  </div>
+                  <div id="dice-two-side-four" class='side four'>
+                    <div class="dot four-1"></div>
+                    <div class="dot four-2"></div>
+                    <div class="dot four-3"></div>
+                    <div class="dot four-4"></div>
+                  </div>
+                  <div id="dice-two-side-five" class='side five'>
+                    <div class="dot five-1"></div>
+                    <div class="dot five-2"></div>
+                    <div class="dot five-3"></div>
+                    <div class="dot five-4"></div>
+                    <div class="dot five-5"></div>
+                  </div>
+                  <div id="dice-two-side-six" class='side six'>
+                    <div class="dot six-1"></div>
+                    <div class="dot six-2"></div>
+                    <div class="dot six-3"></div>
+                    <div class="dot six-4"></div>
+                    <div class="dot six-5"></div>
+                    <div class="dot six-6"></div>
+                  </div>
+                </div> 
+             </div>
+             <div id='roll' class='roll-button'><button id="diceRoll">Roll dice!</button></div>
+            </div> 
+        </div>
+        <div id="monopoly_board" class="rounded-4 initial-rotation" data-rotate-z="0">
+          <img id="street1" src="../assets/images/1St.png" height="8%" style="position: absolute; left: 10px; bottom: -8%; z-index: 101;">
+          <img id="street2" src="../assets/images/2St.png" height="25%" style="position: absolute; left: -9%; top: 0%; z-index: 101;">
+          <img id="street3" src="../assets/images/3St.png" height="8%" style="position: absolute; right: 2%; top: -8%; z-index: 101;">
+          <img id="street4" src="../assets/images/4St.png" height="16%" style="position: absolute; right: -6.5%; bottom: 2%; z-index: 101;">
+          <img id="cPlayer" data-value="0" src="../assets/images/car.png" width="50px;" height="50px"; >
+          <img id="aPlayer" data-value="0" src="../assets/images/plane.png" width="50px;" height="50px";>
+          <img id="bPlayer" data-value="0" src="../assets/images/boat.png" width="50px;" height="50px"; >
+          <div id="board_center" style="display: flex; justify-content: center; align-items: center; padding: 4px;">
+            <img src="../assets/images/wallpaper.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>    
+          <!-- TOP div -->
+          <div class="card_top d-flex flex-row">
+            <div id="parking"class="card c10" style="width: 20%; height: 100%; position: relative; background-color:#AA38D2; border-radius: 5px;">
+              <img id="parkImg" src="../assets/images/parking.png" alt="Parking" style="color: #E5F4E3; position: absolute; bottom: 0; right: 0; width: 80%; height: 80%; padding: 2px; border-radius: 5px;">
+          </div>    
+            <div class="px-0 full-icon2 card col-sm  justify-content-end c11" address="11" data-value="-1" onclick="displayDetails(this)">
+              <img src="../assets/images/owen.jpg" style="width: 90%; height: 77%; transform: rotateZ(180deg); object-fit: cover; padding: 4px; padding-top: 2px; border-radius: 5px">
+              <div class="hotel hotel_area yellow" style="margin-bottom: 3px; height: 20%;"></div>    
+            </div>
+            <div class="px-0 full-icon card col-sm  justify-content-end c12" address="12" data-value="-1" onclick="displayDetails(this)">
+              <img src="../assets/images/tarkington.jpg" style="width: 90%; height: 77%; transform: rotateZ(180deg); object-fit: cover; padding: 4px; padding-top: 2px; border-radius: 5px">
+              <div class="hotel hotel_area yellow" style="margin-bottom: 3px; height: 20%;"></div>
+            </div>
+            <div class="px-0 full-icon2 card col-sm  justify-content-end c13" address="13" data-value="-1" onclick="displayDetails(this)">
+              <img src="../assets/images/cary.jpeg" style="width: 90%; height: 77%; transform: rotateZ(180deg); object-fit: cover; padding: 4px; padding-top: 2px; border-radius: 5px">
+              <div class="hotel hotel_area red" style="margin-bottom: 3px; height: 20%;"></div>
+            </div>
+            <div class="px-0 full-icon card col-sm justify-content-end c14" address="14" data-value="-1" onclick="displayDetails(this)">
+              <img src="../assets/images/wiley.jpg" style="width: 90%; height: 77%; transform: rotateZ(180deg); object-fit: cover; padding: 4px; padding-top: 2px; border-radius: 5px">
+              <div class="hotel hotel_area red" style="margin-bottom: 3px; height: 20%;"></div>
+            </div>
+            <div id="goToJail"class="card c15" style="width: 20%; background-color:#018FB1; border-radius: 5px; position: relative;">
+              <img id="gotoJailImg" src="../assets/images/gotojail.png" alt="Go To Jail" style="color: #E5F4E3; position: absolute; bottom: 0px; overflow: hidden; width: 80%; height: 80%;">
+            </div>
+          </div>
+          <!-- Bottom Div -->
+          <div class="card_bottom d-flex flex-row">
+            <div id="jail"class="card c5" style="width: 20%; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-end; background-color:#FF5731; border-radius: 5px; ">
+                <img id="gtjImg" src="../assets/images/jail.png" alt="Jail" style="color: #E5F4E3; width: 80%; height: 80%; ;position: relative; overflow: hidden; padding: 2px; border-width: 0px;">
+            </div>
+            <div class="px-0 full-icon card col-sm c4" address="4" data-value="-1" onclick="displayDetails(this)">
+                <div class="hotel hotel_area blue" style="margin-top: 3px; height: 20%;"></div>
+                <img src="../assets/images/earhart.jpg" style="width: 95%; height: 77%; object-fit: cover; padding: 4px; padding-top: 1px; border-radius: 5px">
+            </div>
+            <div class="px-0 full-icon2 card col-sm c3" address="3" data-value="-1" onclick="displayDetails(this)">
+              <div class="hotel hotel_area blue" style="margin-top: 3px; height: 20%;"></div>
+              <img src="../assets/images/first-street-towers.jpg" style="width: 95%; height: 77%; object-fit: cover; padding: 4px; padding-top: 2px; border-radius: 5px;">
+            </div>
+            <div class="px-0 full-icon card col-sm c2" address="2" data-value="-1" onclick="displayDetails(this)">
+              <div class="hotel hotel_area purple" style="margin-top: 3px; height: 20%;"></div>
+              <img src="../assets/images/shreve.jpg" style="width: 95%; height: 77%; object-fit: cover; padding: 4px; padding-top: 2px; border-radius: 5px">
+            </div>
+            <div class="px-0 full-icon2 card col-sm c1" address="1" data-value="-1" onclick="displayDetails(this)">
+              <div class="hotel hotel_area purple" style="margin-top: 3px; height: 20%;"></div>
+              <img src="../assets/images/meridith_south.jpg" style="width: 95%; height: 77%; object-fit: cover; padding: 4px; padding-top: 2px; border-radius: 5px">
+            </div>
+            <div id="start" class="card c0" style="width: 20%; height: 100%; justify-content: center; background-color:#F9AD0B; border-radius: 5px;">
+              <div style="text-align: center; transform: rotateZ(-45deg);">
+                <p id="goText"style="font-size: 120px; font-family: myfont, sans-serif; color:#0A0A0A;">GO</p>
+              </div>
+            </div>
+          </div>
+          <!-- Left Div -->
+          <div class="card_left d-flex flex-column">
+            <div class="full-icon card_col d-flex justify-content-end c9" style="flex: 1; position: relative; overflow: hidden; height: 100%; border-top: 0px;" address="9" data-value="-1" onclick="displayDetails(this)">
+              <div style="width: 80%; position: relative; overflow: hidden; height: 100%; padding: 2px; padding-left: 4px; padding-right: 4px;">
+                <img src="../assets/images/mccutcheon.jpg" style="transform: rotateZ(90deg); width: 90%; height: 100%; object-fit: cover; border-radius: 2px;">
+              </div>
+              <div class="hotel hotel_wid yellow" style="margin-right: 4px;"></div>
+            </div>
+            <div class="full-icon2 card_col d-flex justify-content-end c8" style="flex: 1; position: relative; overflow: hidden; height: 100%;" address="8" data-value="-1" onclick="displayDetails(this)">
+              <div style="width: 80%; position: relative; overflow: hidden; height: 100%; padding: 2px; padding-left: 4px; padding-right: 4px;">
+                <img src="../assets/images/hillenbrand-hallOG.jpg" style="transform: rotateZ(90deg); width: 90%; height: 100%; object-fit: cover; border-radius: 2px;">
+              </div>
+              <div class="hotel hotel_wid yellow" style="margin-right: 4px;"></div>  
+            </div>
+            <div class="full-icon card_col d-flex justify-content-end c7" style="flex: 1; position: relative; overflow: hidden; height: 100%;" address="7" data-value="-1" onclick="displayDetails(this)">
+              <div style="width: 80%; position: relative; overflow: hidden; height: 100%; padding: 2px; padding-left: 4px; padding-right: 4px;">
+                <img src="../assets/images/harrison.jpg" style="transform: rotateZ(90deg); width: 90%; height: 100%; object-fit: cover; border-radius: 2px;">
+              </div>
+              <div class="hotel hotel_wid blue" style="margin-right: 4px;"></div>
+            </div>
+            <div class="full-icon2 card_col d-flex justify-content-end c6" style="flex: 1; position: relative; overflow: hidden; height: 100%;" address="6" data-value="-1" onclick="displayDetails(this)">
+              <div style="width: 80%; position: relative; overflow: hidden; height: 100%; padding: 2px; padding-left: 4px; padding-right: 4px;">
+                <img src="../assets/images/Aspire.jpg" style="transform: rotateZ(90deg); width: 90%; height: 100%; object-fit: cover; border-radius: 2px;">
+              </div>
+              <div class="hotel hotel_wid blue" style="margin-right: 4px;"></div>
+            </div>
+          </div>
+          <!-- Right Div -->
+          <div class="card_right d-flex flex-column">
+            <div class="full-icon2 card_col d-flex justify-content-end c16" style="flex: 1; position: relative; overflow: hidden; height: 100%; border-top: 0px;" address="16" data-value="-1" onclick="displayDetails(this)">
+              <div class="hotel hotel_wid red" style="margin-left: 4px;"></div>
+              <div style="width: 80%; position: relative; overflow: hidden; height: 100%; padding: 2px; padding-left: 4px; padding-right: 4px;">
+                <img src="../assets/images/frieda.jpeg" style="transform: rotateZ(270deg); width: 90%; height: 100%; object-fit: cover; border-radius: 2px;">
+              </div>
+              
+            </div>
+            <div class="full-icon card_col d-flex justify-content-end c17" style="flex: 1; position: relative; overflow: hidden; height: 100%;" address="17" data-value="-1" onclick="displayDetails(this)">
+              <div class="hotel hotel_wid red" style="margin-left: 4px;"></div>
+              <div style="width: 80%; position: relative; overflow: hidden; height: 100%; padding: 2px; padding-left: 4px; padding-right: 4px;">
+                <img src="../assets/images/honors.jpg" style="transform: rotateZ(270deg); width: 90%; height: 100%; object-fit: cover; border-radius: 2px;">
+              </div>
+              
+            </div>
+            <div class="full-icon2 card_col d-flex justify-content-end c18" style="flex: 1; position: relative; overflow: hidden; height: 100%;" address="18" data-value="-1" onclick="displayDetails(this)">
+              <div class="hotel hotel_wid purple" style="margin-left: 4px;"></div>
+              <div style="width: 80%; position: relative; overflow: hidden; height: 100%; padding: 2px; padding-left: 4px; padding-right: 4px;">
+                <img src="../assets/images/windsor.jpg" style="transform: rotateZ(270deg); width: 90%; height: 100%; object-fit: cover; border-radius: 2px;">
+              </div>
+              
+            </div>
+            <div class="full-icon card_col d-flex justify-content-end c19" style="flex: 1; position: relative; overflow: hidden; height: 100%;" address="19" data-value="-1" onclick="displayDetails(this)">
+              <div class="hotel hotel_wid purple" style="margin-left: 4px;"></div>
+              <div style="width: 80%; position: relative; overflow: hidden; height: 100%; padding: 2px; padding-left: 4px; padding-right: 4px;">
+                <img src="../assets/images/wini.jpg" style="transform: rotateZ(270deg); width: 90%; height: 100%; object-fit: cover; border-radius: 2px;">
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <script src="../assets/js/color-modes.js"></script>
+        <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.12.9/babel.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+          const toastTrigger = document.getElementById('liveToastBtn')
+          toastTrigger.click
+          const monopolyBoard = document.getElementById('monopoly_board');
+          monopolyBoard.addEventListener('animationend', () => {
+            monopolyBoard.classList.remove('initial-rotation');
+          });
+        });
+         const toastTrigger = document.getElementById('liveToastBtn')
+         const toastLiveExample = document.getElementById('liveToast')
+
+          if (toastTrigger) {
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastTrigger.addEventListener('click', () => {
+              toastBootstrap.show()
+            })
+          }
+        function turn(whichWay){
+          var board = document.getElementById('monopoly_board');
+          var angle = parseInt(board.getAttribute('data-rotate-z'));
+          if (whichWay == 0){
+            angle += 45;
+          }
+          else{
+            angle -= 45;
+          }
+          console.log(angle);
+          board.style.transform = "rotateX(45deg)" +  "rotateZ(" + angle + "deg)" +  "translateZ(150px)";
+          board.setAttribute('data-rotate-z', angle);
+        }
+        function Rent(){
+          var cost = parseInt(2 * parseInt(document.getElementsByClassName('desc')[0].getAttribute('data-value')));
+          var curIcon = document.getElementsByClassName("c" + document.getElementById(orderOfPlay[rollPlayer].id).getAttribute("data-value"))[0];
+          var paid = orderOfPlay[rollPlayer].PayRent(cost, orderOfPlay[curIcon.getAttribute('data-value')]);
+          var myProperties = orderOfPlay[rollPlayer]._own;
+          if (paid == true){
+            var toast = document.getElementsByClassName('toast-body')[0];
+            toast.innerHTML = "Rent Paid";
+            var toastButton = document.getElementById('liveToastBtn');
+            toastButton.click();
+            Pass();
+          }
+          else if (myProperties.length > 0){
+            //pay by properties
+            var rentButton = document.getElementById('rentButton');
+            rentButton.style.display = 'none';
+            var sellPropertiesDiv = document.getElementById('sellProperties');
+            sellPropertiesDiv.innerHTML = ''; // Clear any existing content
+
+            for (let j = 0; j < myProperties.length; j++) {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'list-group-item list-group-item-action';                
+                var house = myProperties[j];
+                if (house <= 5){
+                  button.textContent = "First Street, House No. " + (5 - parseInt(house)); // Customize this text as needed
+                } 
+                else if (house <= 10){
+                  button.textContent = "MacArthur Street, House No. " + house // Customize this text as needed
+                }
+                else if (house <= 15){
+                  button.textContent = "West Stadium Street, House No. " + house // Customize this text as needed
+                }
+                else if (house <= 20){
+                  button.textContent = "Third Street, House No. " + (20 - parseInt(house)) // Customize this text as needed
+                }
+                button.onclick = function() {
+                    transfer(house);
+                };
+                sellPropertiesDiv.appendChild(button);
+            }
+            var sellProperties = document.getElementById('sellProperties');
+            sellProperties.style.display = 'block';
+            var toast = document.getElementsByClassName('toast-body')[0];
+            toast.innerHTML = "Rent paid via Property";
+            var toastButton = document.getElementById('liveToastBtn');
+            toastButton.click();
+          }     
+          else{
+            //game over
+            var toast = document.getElementsByClassName('toast-body')[0];
+            toast.innerHTML = "Game Over!";
+            var toastButton = document.getElementById('liveToastBtn');
+            toastButton.click();
+          }    
+        }
+        function transfer(property){
+          orderOfPlay[rollPlayer].RemoveProperty(property);
+          orderOfPlay[curIcon.getAttribute('data-value')].AddProperties(property);
+          Pass();
+        }
+        function showProperties() {
+            var whoseProperty = document.getElementById(rollPlayer + 'P');
+            var bankContent = document.getElementById('bankContent');
+            var toHide = document.getElementsByClassName('playerProperty');   
+
+            // Hide all playerProperty elements
+            Array.from(toHide).forEach(element => {
+                element.style.display = "none";
+                element.classList.remove('show');
+            });
+
+
+            if (bankContent.classList.contains('show')) {
+                bankContent.classList.remove('show');
+                setTimeout(function() {
+                    bankContent.style.display = 'none';
+                }, 500); // Match the duration of the transition
+                whoseProperty.style.display = 'block';
+                setTimeout(function() {
+                    whoseProperty.classList.add('show');
+                }, 10); 
+            }  
+            else if (whoseProperty.classList.contains('show')) {
+                whoseProperty.classList.remove('show');
+                setTimeout(function() {
+                    whoseProperty.style.display = 'none';
+                }, 500);
+            }
+            else {
+                whoseProperty.style.display = 'block';
+                setTimeout(function() {
+                    whoseProperty.classList.add('show');
+                }, 10); // Small delay to allow the display change to take effect
+            }
+            var properties = orderOfPlay[rollPlayer]._own;
+            var addedProperty = whoseProperty.querySelectorAll('.property').length;
+          
+            for (let j = 0; j < properties.length - addedProperty; j++) {
+                var i = addedProperty + j;
+                const newDiv = document.createElement('div');
+                var at_ = properties[i];
+                if (at_ <= 2) {
+                    newDiv.style.backgroundColor = "#AA38D2";
+                } else if (at_ <= 7) {
+                    newDiv.style.backgroundColor = "#018FB1";
+                } else if (at_ <= 12) {
+                    newDiv.style.backgroundColor = "#F3B23E";
+                } else if (at_ <= 17) {
+                    newDiv.style.backgroundColor = "#FF5731";
+                } else if (at_ <= 19) {
+                    newDiv.style.backgroundColor = "#AA38D2";
+                } 
+                newDiv.className = 'property';
+                newDiv.setAttribute('onmouseover', 'highlightBut(this)');
+                newDiv.setAttribute('onmouseout', 'undoDeocr(this)');
+                newDiv.setAttribute('id', at_);
+                whoseProperty.appendChild(newDiv);
+            }
+        }
+
+
+        function showBank() {
+            var bankContent = document.getElementById('bankContent');
+            var propertyContent = document.getElementById('PropertyContent');
+            var toHide = document.getElementsByClassName('playerProperty');
+
+            Array.from(toHide).forEach(element => {
+                element.style.display = "none";
+                element.classList.remove('show');
+            });
+
+            if (bankContent.classList.contains('show')) {
+                bankContent.classList.remove('show');
+                setTimeout(function() {
+                    bankContent.style.display = 'none';
+                }, 500); // Match the duration of the transition
+            } 
+            else {
+                bankContent.style.display = 'block';
+                setTimeout(function() {
+                    bankContent.classList.add('show');
+                }, 10); // Small delay to allow the display change to take effect
+            }
+            var money = parseInt(orderOfPlay[rollPlayer]._money);
+            var properties = orderOfPlay[rollPlayer]._own.length;
+            var displayMoney = document.getElementById('myBalance');
+            var displayProperty = document.getElementById('myProperty');
+            let i = 5000;
+            if (money < i){
+              const interval = setInterval(() => {
+                displayMoney.innerHTML = "Balance: " + i + "ETH";
+                i -= 1;
+                if (i < parseInt(money)) {
+                    clearInterval(interval);
+                }
+            }, 0);
+            }
+            else{
+              const interval = setInterval(() => {
+                displayMoney.innerHTML = "Balance: " + i + "ETH";
+                i += 1;
+                if (i > parseInt(money)) {
+                    clearInterval(interval);
+                }
+            }, 0);
+            }
+            
+            displayProperty.innerHTML = "You own: " + properties + " properties";
+            displayMoney.innerHTML = "Balance: " + money + "ETH";
+            updateChart();
+        }
+        function updateChart() {
+            const ctx = document.getElementById('myPieChart').getContext('2d');
+            const money = parseInt(orderOfPlay[rollPlayer]._money);
+            const data = {
+                labels: ['Balance', 'Expenditure'],
+                datasets: [{
+                    label: 'Financial Data',
+                    data: [money, 5000 - money],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                    ],
+                }]
+            };
+            const config = {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                        }
+                    }
+                },
+            };
+
+            // If the chart instance already exists, destroy it before creating a new one
+            if (window.myPieChart instanceof Chart) {
+                window.myPieChart.destroy();
+            }
+            window.myPieChart = new Chart(ctx, config);
+        }
+        
+        class Player{
+          constructor(player_id){
+            this._id = player_id;
+            this._money = 5000;
+            this._own = [];
+            this._at = 0;
+            this._inJail = false;
+          }
+          get money(){
+            return this._money;
+          }
+          AddMoney(money){
+            this._money += money;
+          }
+          get ownProperty(){
+            return this._own;
+          }
+          get id(){
+            return this._id;
+          }
+          get where(){
+            return this._at;
+          }
+          get inJail(){
+            return this._inJail;
+          }
+          SendToJail(){
+            this._inJail = true;
+          }
+          OutofJail(){
+            this._inJail = false;
+          }
+          Move(toWhere){
+            if (this._at + toWhere <= 19){
+              this._at += toWhere;
+            }
+            else{
+              this._at = this._at + toWhere - 20;
+            }
+            
+          }
+          AddProperties(property){
+            this._own.push(property);
+          }
+          RemoveProperty(property) {
+            this._own = this._own.filter(item => item !== parseInt(property));
+          }
+          Buy(cost, cardNo){
+            if (this._money > cost){
+              this._money -= cost;
+              this._own.push(cardNo);
+              return true;
+            }
+            return false;
+          }
+          PayRent(cost, towho){
+            if (this._money > cost){
+              this._money -= cost;
+              towho.AddMoney(cost);
+              return true;
+            }
+            return false;
+          }
+        }
+        const a = new Player("aPlayer");
+        const b = new Player("bPlayer");
+        const c = new Player("cPlayer");
+        var orderOfPlay = [a,b,c]
+        var elDiceOne = document.getElementById('dice1');
+        var elDiceTwo = document.getElementById('dice2');
+        var elComeOut = document.getElementById('roll');
+        var rolling = false;
+        var makingDecision = false;
+        var rollPlayer = 0;
+        const paintingsList = [
+    {"information": "A beautiful landscape painting depicting a serene sunset over a mountain range.", "value": "100$"},
+    {"information": "Meredith South", "value": "300$"},
+    {"information": "Shreve Hall", "value": "200$"},
+    {"information": "First Street Tower", "value": "190$"},
+    {"information": "Earhart Hall", "value": "250$"},
+    {"information": "A classic still life painting of a bowl of fruit on a table.", "value": "120$"},
+    {"information": "Aspire Apartments", "value": "180$"},
+    {"information": "Harrison Hall", "value": "220$"},
+    {"information": "Hillenbrand Hall", "value": "900$"},
+    {"information": "Mccutcheon", "value": "300$"},
+    {"information": "A detailed botanical illustration of exotic flowers.", "value": "130$"},
+    {"information": "Owen", "value": "170$"},
+    {"information": "Tarkington", "value": "260$"},
+    {"information": "Cary Quad", "value": "320$"},
+    {"information": "Wiley", "value": "280$"},
+    {"information": "A black and white sketch of a majestic lion.", "value": "140$"},
+    {"information": "Frieda Parker Hall", "value": "210$"},
+    {"information": "Honors College", "value": "240$"},
+    {"information": "Windsor", "value": "110$"},
+    {"information": "WiniFred Parker Hall", "value": "270$"}
+
+];
+      function highlightBut(arg){
+        var element = document.getElementById("nft-details");
+        var card = document.getElementsByClassName("c" + arg.getAttribute('id'))[0];
+        var cardType1 = document.getElementsByClassName("card");
+        var cardType2 = document.getElementsByClassName("card_col");
+        Array.from(cardType1).forEach(element => {
+            element.style.opacity = 0.5;
+          });
+          Array.from(cardType2).forEach(element => {
+            element.style.opacity = 0.5;
+          });
+        card.style.opacity = 1;
+        element.style.opacity = 1;
+      }
+      function decorBut(arg){
+        var element = document.getElementById("nft-details");
+        var cardType1 = document.getElementsByClassName("card");
+        var cardType2 = document.getElementsByClassName("card_col");
+        var curIcon = document.getElementsByClassName("c" + document.getElementById(orderOfPlay[rollPlayer].id).getAttribute("data-value"))[0];
+        Array.from(cardType1).forEach(element => {
+            element.style.opacity = 0.5;
+          });
+          Array.from(cardType2).forEach(element => {
+            element.style.opacity = 0.5;
+          });
+        curIcon.style.opacity = 1;
+        element.style.opacity = 1;
+        curIcon.classList.add("hoverOnTurn");
+        if (arg.getAttribute('id') == "buyButton"){
+          element.style.backgroundColor = "#10CAF0";        
+        }else{
+          element.style.backgroundColor = "#DC3444";
+        }      
+      }
+      function undoDeocr(){
+        var element = document.getElementById("nft-details");
+        var cardType1 = document.getElementsByClassName("card");
+        var cardType2 = document.getElementsByClassName("card_col");
+        var curIcon = document.getElementsByClassName("c" + document.getElementById(orderOfPlay[rollPlayer].id).getAttribute("data-value"))[0];
+        curIcon.classList.remove("hoverOnTurn");
+        curIcon.style.scale = 1;
+        curIcon.style.transform = "";
+        Array.from(cardType1).forEach(element => {
+          element.style.opacity = 1;
+          });
+          Array.from(cardType2).forEach(element => {
+            element.style.opacity = 1;
+          });
+        element.style.backgroundColor = "#0A0A0A";
+      }
+        function changeTurn(){
+          if (rollPlayer < orderOfPlay.length-1){
+            rollPlayer += 1;
+          }
+          else{
+            rollPlayer = 0;
+          }
+          if (orderOfPlay[rollPlayer].inJail == true){
+            orderOfPlay[rollPlayer].OutofJail();
+            changeTurn();
+          }
+        }
+        function flashBodyColor(color) {
+          const body = document.getElementById('flash');
+          const board = document.getElementById('monopoly_board');
+          board.style.display = "none";
+          body.style.display = "block";
+          body.style.transition = "background-color 5s ease";
+          body.style.backgroundColor = color;
+          
+          setTimeout(() => {
+              body.style.display = "none"
+              board.style.display = "flex";
+              body.style.backgroundColor = ""; // Transition back to original color
+          }, 1000);
+        }
+        function Buy(){
+          var cardDetail = document.getElementById('nft-details');
+          var buttons = cardDetail.getElementsByClassName('dis0');
+              Array.from(buttons).forEach(element => {
+                element.style.display = "none";
+         });
+          var buttons = cardDetail.getElementsByClassName('dis1');
+              Array.from(buttons).forEach(element => {
+                element.style.display = "none";
+          });
+          var cost = parseInt(document.getElementsByClassName('desc')[0].getAttribute('data-value'));
+          var bought = orderOfPlay[rollPlayer].Buy(cost, document.getElementById(orderOfPlay[rollPlayer].id).getAttribute("data-value"));
+          if (bought == true){
+            var curIcon = document.getElementsByClassName("c" + document.getElementById(orderOfPlay[rollPlayer].id).getAttribute("data-value"))[0];           
+            curIcon.setAttribute('data-value', rollPlayer);
+            flashBodyColor("gold");
+            var toast = document.getElementsByClassName('toast-body')[0];
+            toast.innerHTML = "Propert Bought!";
+            var toastButton = document.getElementById('liveToastBtn');
+            toastButton.click();
+          }
+          console.log("Sold: " + bought);
+          console.log("Money left: " + orderOfPlay[rollPlayer]._money);
+          updateChart();
+          Pass();
+          updateChart();
+        }
+        function Pass(){
+          var cardDetail = document.getElementById('nft-details');
+          var buttons = cardDetail.getElementsByClassName('dis0');
+              Array.from(buttons).forEach(element => {
+                element.style.display = "none";
+         });
+          var buttons = cardDetail.getElementsByClassName('dis1');
+              Array.from(buttons).forEach(element => {
+                element.style.display = "none";
+          });
+          document.getElementById('nft-details').style.display = "none";
+          var curIcon = document.getElementsByClassName("c" + document.getElementById(orderOfPlay[rollPlayer].id).getAttribute("data-value"))[0];
+          curIcon.classList.remove("hoverOnTurn")
+          changeTurn();
+          rolling = false;
+          makingDecision = false;
+        }
+        elComeOut.onclick   = function () {rollDice();};
+      
+        function rollDice() {
+          var element = document.getElementById(orderOfPlay[rollPlayer].id);
+          var currentValue = parseInt(element.getAttribute("data-value"));
+          if (!rolling){
+            rolling = true;
+            var diceOne   = Math.floor((Math.random() * 6) + 1);
+            var diceTwo   = Math.floor((Math.random() * 6) + 1);          
+            var move = diceOne + diceTwo;
+        
+            for (var i = 1; i <= 6; i++) {
+              elDiceOne.classList.remove('show-' + i);
+              if (diceOne === i) {
+                elDiceOne.classList.add('show-' + i);
+              }
+            }
+        
+            for (var k = 1; k <= 6; k++) {
+              elDiceTwo.classList.remove('show-' + k);
+              if (diceTwo === k) {
+                elDiceTwo.classList.add('show-' + k);
+              }
+            }  
+            movePlayer(move, orderOfPlay[rollPlayer].id);
+          }
+          
+        }
+        function displayDetails(element, Passedvalue=-1){
+          if (makingDecision == false){
+            if (Passedvalue != -1){
+              makingDecision = true;
+            }
+            
+            var hotelElement = element.querySelector('.hotel');
+            var backgroundColor = window.getComputedStyle(hotelElement).backgroundColor;
+            var cardDetail = document.getElementById('nft-details');
+            var toDisplay = element.querySelector('img').cloneNode(true); 
+            var owned = element.getAttribute('data-value');
+            var clickAddress = element.getAttribute('address');
+            toDisplay.style.transform = "";
+            toDisplay.classList.add('rounded-4')  ;
+            toDisplay.style.height = ('90%');
+            toDisplay.style.padding = (4);       
+            cardDetail.style.display = "flex";
+            cardDetail.style.boxShadow = "0 0 15px " + backgroundColor;
+            var holder = cardDetail.getElementsByClassName('imageHolder')[0];
+            var existingImage = holder.querySelector('img');
+            console.log(Passedvalue, clickAddress);
+            if (Passedvalue == -1 || (Passedvalue != clickAddress)){
+              var classList = element.classList;
+              Passedvalue = parseInt(classList[classList.length-1].substring(1)); 
+            }
+            else{
+              if (owned == "-1"){
+                var buttons = cardDetail.getElementsByClassName('dis1');
+                Array.from(buttons).forEach(element => {
+                  element.style.display = "none";
+                });
+                var buttons = cardDetail.getElementsByClassName('dis0');
+                Array.from(buttons).forEach(element => {
+                  element.style.display = "block";
+                });
+              }
+              else{
+                var buttons = cardDetail.getElementsByClassName('dis1');
+                Array.from(buttons).forEach(element => {
+                  element.style.display = "inline-block";
+                });
+                var buttons = cardDetail.getElementsByClassName('dis0');
+                Array.from(buttons).forEach(element => {
+                  element.style.display = "none";
+                });
+              }
+            }
+            var description = cardDetail.getElementsByClassName('desc')[0];
+            description.innerHTML = paintingsList[Passedvalue]['information'] + "<br>"+ paintingsList[Passedvalue]['value'];
+            description.setAttribute('data-value', paintingsList[Passedvalue]['value']);
+            if (existingImage) {
+              existingImage.remove();
+            }
+            holder.appendChild(toDisplay);
+          } 
+        }
+        function sleep(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
+        }
+      
+        async function movePlayer(dice, player_id){
+          var element = document.getElementById(player_id);
+          var width = parseInt(document.getElementById('monopoly_board').clientWidth);
+          var currentStyle = "";
+          orderOfPlay[rollPlayer].Move(dice);
+          var computedStyle = window.getComputedStyle(element);
+          var right = parseInt(computedStyle.getPropertyValue('right'));
+          var bottom = parseInt(computedStyle.getPropertyValue('bottom'));
+          var currentValue = parseInt(element.getAttribute("data-value"));
+          let previousValue = null;
+          if (bottom < width*0.1){
+            bottom = width*0.1;
+          }
+          function updateIcon() {
+              currentValue += 1;
+              currentValue %= 20;
+              var curIcon = document.getElementsByClassName("c" + currentValue)[0];
+      
+              // If there was a previous value, remove the shadow class from the previous icon
+              if (previousValue !== null) {
+                var prevIcon = document.getElementsByClassName("c" + previousValue)[0];
+                if (prevIcon) {
+                  prevIcon.classList.remove("highlight");
+                }
+              }
+              
+              // Add the shadow class to the new icon
+              if (curIcon) {
+                curIcon.classList.add("highlight");
+              }
+              
+              // Update the previous value
+              previousValue = currentValue;              
+            }
+            
+          while(dice){
+            if (currentValue < 5){
+              currentStyle =  "rotateY(180deg) rotateX(30deg)" ;
+              right += 0.15 * width;
+            }
+            else if(currentValue < 10){
+              currentStyle = "rotateZ(-45deg) rotateY(0deg)" ;
+              bottom += 0.15 * width;
+            }else if(currentValue < 15){
+              currentStyle = "rotateZ(0deg) rotateY(0deg)";
+              right -= 0.15 * width;
+            }
+            else{
+              currentStyle = "rotateZ(-45deg) rotateY(180deg)";
+              bottom -= 0.15 * width;
+            }
+            updateIcon();
+            element.style.transform = "scale(2)" + currentStyle;
+            element.style.right = right +'px';
+            element.style.bottom = bottom + 'px';
+            element.setAttribute('data-value', currentValue);
+            dice -= 1;
+            await sleep(750);
+          }
+
+          //Sendin to Jail
+          if (currentValue == 15){
+            orderOfPlay[rollPlayer].SendToJail();
+            element.setAttribute('data-value', "5");
+            element.style.right = (width * 0.1) + (width * 0.15 * 5) +'px';
+            element.style.bottom =  (width * 0.06) + 'px';
+          }
+          element.style.transform = currentStyle + "scale(1)";
+          var toDisplay = document.getElementsByClassName('c'+ currentValue)[0];
+          toDisplay.classList.remove("highlight");
+          if (![0, 5, 10, 15].includes(currentValue)){
+            displayDetails(toDisplay, currentValue);
+          }
+          else{
+            rolling = false;
+            changeTurn();
+          }
+          
+        }
+      </script>
+      </body>
+      </html>
